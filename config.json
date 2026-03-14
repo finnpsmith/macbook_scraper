@@ -1,0 +1,16 @@
+{
+  "products": [
+    {
+      "name": "MacBook Pro M5 2026",
+      "url": "https://www.amazon.com/Apple-2025-MacBook-Laptop-10%E2%80%91core/dp/B0FWD6SKL6/ref=sr_1_1_sspa?crid=3W4GGXJ07KGCN&dib=eyJ2IjoiMSJ9.M6b7AFIaRTz0gbJgYWx_c5NhUlF3Ssf4dQFN6GcHCoyN5zf84PQiKSON_nI8XWl8b-r-WjvBMJkEEqmhSov7Dtr9D7imbBtiPb4_4maZppjk745EHzx5FcZXuJJx5XpbhGjfESunTJ9QfGbvKEdmiDBZ0Y9vIN9PLkEUzWq6tnbv8PL_YpsIA0DN2u3aGkD7SNQu1-v3QHFo4ZGkZXvDtmTRSEOeBd3Empa67SEpuZo.sqFxlqPR1yaalKZXdK_Kh_kekTLQrquCJAW7ST51OSk&dib_tag=se&keywords=macbook%2Bpro&qid=1773342816&sprefix=macbook%2Bpro%2Caps%2C160&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1",
+      "target_price": 1365.0,
+      "log_file": "macbook_pro_m5_log.csv"
+    },
+    {
+      "name": "MacBook Air M5",
+      "url": "https://www.amazon.com/Apple-2026-MacBook-13-inch-Laptop/dp/B0GR1JTFP8/ref=sr_1_1_sspa?crid=1WWG27M9J200M&dib=eyJ2IjoiMSJ9.2R8JNJT49BdMdGtzMESEz6zyk6tXrf-8CFFnMw_TXSCRCMeaHWuP59YXpLucAToaZMkti4NkKoOfghf1mfxWrkTUExikhoz7oe1Bspc52jepMc4hS8QMJ6KUn2Gu17C1pMEpJH2DMlyw9bmXDy7WCwt7J-hkQP69uRasCzh13UBECh8or2mm1ljV0rvme9e0w96mzftt5qmnaNCMoMXWlFyxWL2AOvCET89VJBWX40s.gQTVZF8ngLL2WCwYos52N0Meq_nPkdzYt6T039pERjo&dib_tag=se&keywords=macbook%2Bair&qid=1773524882&sprefix=macbook%2Bair%2Caps%2C221&sr=8-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1",
+      "target_price": 1000.0,
+      "log_file": "macbook_air_m5.csv"
+    }
+  ]
+}
