@@ -2,20 +2,13 @@ import argparse
 import csv
 import json
 import os
+import random
+import time
 from datetime import datetime
 from pathlib import Path
 
-import requests
+from curl_cffi import requests
 from bs4 import BeautifulSoup
-
-HEADERS = {
-    "User-Agent": (
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/120.0.0.0 Safari/537.36"
-    ),
-    "Accept-Language": "en-US,en;q=0.9",
-}
 
 DEFAULT_CONFIG_PATH = "config.json"
 
@@ -57,9 +50,12 @@ def load_config(path: str) -> list[dict]:
     return result
 
 
+_session = requests.Session()
+
+
 def fetch_page(url: str) -> str | None:
     try:
-        response = requests.get(url, headers=HEADERS, timeout=15)
+        response = _session.get(url, impersonate="chrome120", timeout=15)
         response.raise_for_status()
         return response.text
     except requests.RequestException as e:
@@ -215,7 +211,11 @@ def main() -> None:
         if os.environ.get("SCRAPER_LOG_FILE"):
             products[0]["log_file"] = os.environ["SCRAPER_LOG_FILE"]
 
-    for product in products:
+    for i, product in enumerate(products):
+        if i > 0:
+            delay = random.uniform(3, 8)
+            print(f"Waiting {delay:.1f}s before next request...")
+            time.sleep(delay)
         scrape_one(product)
 
 

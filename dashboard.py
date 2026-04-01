@@ -1,4 +1,6 @@
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 import pandas as pd
@@ -15,6 +17,19 @@ def load_config() -> list[dict]:
     with open(CONFIG_PATH, encoding="utf-8") as f:
         data = json.load(f)
     return data.get("products", [data])
+
+
+def run_scraper() -> tuple[bool, str]:
+    result = subprocess.run(
+        [sys.executable, "scraper.py"],
+        capture_output=True,
+        text=True,
+        cwd=Path(__file__).parent,
+    )
+    output = result.stdout
+    if result.stderr:
+        output += "\n--- stderr ---\n" + result.stderr
+    return result.returncode == 0, output.strip()
 
 
 def load_csv(log_file: str) -> pd.DataFrame | None:
@@ -36,6 +51,26 @@ if not products:
 product_names = [p["name"] for p in products]
 selected_name = st.sidebar.radio("Select product", product_names)
 product = next(p for p in products if p["name"] == selected_name)
+
+# Sidebar — run scraper
+st.sidebar.divider()
+st.sidebar.subheader("Update Prices")
+
+n = len(products)
+product_label = "product" if n == 1 else "products"
+
+if st.sidebar.button(f"Run Scraper ({n} {product_label})", use_container_width=True):
+    with st.sidebar.status("Scraping prices...", expanded=True) as status:
+        success, output = run_scraper()
+        if success:
+            status.update(label="Scrape complete", state="complete", expanded=False)
+        else:
+            status.update(label="Scrape finished with errors", state="error", expanded=True)
+
+    if output:
+        st.sidebar.code(output, language=None)
+
+    st.rerun()
 
 df = load_csv(product["log_file"])
 target = product["target_price"]
@@ -101,4 +136,4 @@ if df is not None and not df.empty:
         st.dataframe(display, width="stretch", hide_index=True)
 
 else:
-    st.warning(f"No data found for **{selected_name}**. Run `python scraper.py` first.")
+    st.warning(f"No data found for **{selected_name}**. Use the **Run Scraper** button in the sidebar to fetch prices.")
